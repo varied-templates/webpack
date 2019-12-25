@@ -1,15 +1,15 @@
 # h5单页开发的模板
-本模板配合 `simple-cli` 使用，利用 `simple-cli` 快速构建h5单页开发工程。
+本模板配合 `varied-cli` 使用，利用 `varied-cli` 快速构建h5单页开发工程。
 
 ### 安装
 
 ```
-npm install simple-cli -g
+npm install varied-cli -g
 ```
 ### 构建方法
 
 ```
-simple init webpack mytest
+varied init webpack mytest
 ```
 
 ## 自定义可配置项
