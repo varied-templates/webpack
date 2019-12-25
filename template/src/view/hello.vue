@@ -3,7 +3,7 @@
 </template>
 <script>
 {{#if_eq deviceType "Mobile"}}
-import HelloTemplate from '../components/HelloMobileTemplate';
+import HelloTemplate from '../components/HelloTemplate';
 {{/if_eq}}
 
 export default {

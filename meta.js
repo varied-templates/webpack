@@ -61,6 +61,11 @@ module.exports = {
                     value: 'Mobile',
                     short: 'Mobile',
                 },
+                {
+                    name: 'PC',
+                    value: 'PC',
+                    short: 'PC',
+                },
             ]
         },
         cssPreprocessors: {
