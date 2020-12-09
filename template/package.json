@@ -10,7 +10,8 @@
     "dev": "cross-env NODE_ENV=development webpack --progress --config build/webpack.dev.conf.js",
     "dev:debug": "cross-env NODE_ENV=development webpack --debug --progress --config build/webpack.dev.conf.js",
     "build": "cross-env NODE_ENV=production webpack --progress --config build/webpack.prod.conf.js",
-    "lint": "eslint --ext .vue,.js . --fix"
+    "lint": "eslint --ext .vue,.js . --fix",
+    "format": "prettier --write **/*.vue **/*.js !**/node_modules/** !./node_modules/**"
   },
   "license": "ISC",
   "devDependencies": {
