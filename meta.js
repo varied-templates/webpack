@@ -7,6 +7,7 @@ const {
     runLintFix,
     printMessage,
     createFile,
+    runFormat,
 } = require('./utils');
 const pkg = require('./package.json');
 
@@ -177,6 +178,9 @@ module.exports = {
 
         if (data.autoInstall) {
             installDependencies(cwd, data, green)
+                .then(() => {
+                    return runFormat(cwd, data, green)
+                })
                 .then(() => {
                     return runLintFix(cwd, data, green)
                 })
