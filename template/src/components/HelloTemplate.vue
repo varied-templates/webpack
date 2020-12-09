@@ -16,6 +16,9 @@
 import { Button } from '@varied/mobile';
 {{/if_eq}}
 {{/if_eq}}
+{{#if_eq hasVuex "Yes"}}
+import { mapActions, mapGetters } from 'vuex';
+{{/if_eq}}
 export default {
   name: 'HelloMobileTemplate',
   {{#if_eq hasComponent "Yes"}}
@@ -30,6 +33,18 @@ export default {
       msg: 'Welcome to Varied',
     };
   },
+  {{#if_eq hasVuex "Yes"}}
+  methods: {
+  ...mapActions('user', [
+      'queryRepos', // 获取 git 用户所有仓库
+    ]),
+  },
+  computed: {
+  ...mapGetters('user', [
+      'repos', // git 用户所有仓库
+    ]),
+  },
+  {{/if_eq}}
 };
 </script>
 

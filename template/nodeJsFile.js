@@ -83,16 +83,54 @@ export default store;
  * @description 用户模块
  */
 import Session from '../../utils/session'
+import {queryRepos} from '../../api/module/user'
 
 const storeState = Session.get('storeState');
+
 const state = (storeState && storeState.user) || {
-  data: {}
+  data: {
+    repos: [], // git 用户所有仓库
+  }
 };
-const getters = {};
 
-const mutations = {};
+const getters = {
+  /**
+   * git 用户所有仓库
+   * @param store
+   * @returns {array}
+   */
+  repos(store){
+    return store.repos;
+  }
+};
 
-const actions = {};
+const mutations = {
+  /**
+   * 设置 git 用户所有仓库
+   * @param store
+   * @param data
+   */
+  setRepos(store, data){
+    store.data.repos = data;
+  }
+};
+
+const actions = {
+  /**
+   * 查询 git 用户所有仓库
+   * @param commit
+   * @param username
+   * @returns {Promise<void>}
+   */
+  async queryRepos({commit}, {username}) {
+    try {
+      const data = await queryRepos({username});
+      commit('setRepos', data)
+    }catch (e) {
+      console.log(e);
+    }
+  }
+};
 
 export default { namespaced: true, state, getters, mutations, actions };
 `
@@ -104,7 +142,7 @@ const createApi = () => {
   const content = '/**\n' +
     ' * @author Wuner\n' +
     ' * @date 2020/12/9 8:08\n' +
-    ' * @description 测试模块的接口\n' +
+    ' * @description user 模块的接口\n' +
     ' */\n' +
     'import { post, get } from \'../utils/http\';\n' +
     '\n' +
