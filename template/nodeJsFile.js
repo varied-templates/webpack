@@ -134,10 +134,10 @@ const actions = {
 
 export default { namespaced: true, state, getters, mutations, actions };
 `
-  fs.mkdirSync(path.join(__dirname, "store"));
-  fs.mkdirSync(path.join(__dirname, "store/module"));
-  fs.writeFileSync(path.join(__dirname, "store/index.js"), storeContent);
-  fs.writeFileSync(path.join(__dirname, "store/module/user.js"), moduleContent);
+  fs.mkdirSync(path.join(__dirname, "src/store"));
+  fs.mkdirSync(path.join(__dirname, "src/store/module"));
+  fs.writeFileSync(path.join(__dirname, "src/store/index.js"), storeContent);
+  fs.writeFileSync(path.join(__dirname, "src/store/module/user.js"), moduleContent);
 }
 
 const createApi = () => {
@@ -158,9 +158,9 @@ const createApi = () => {
     'export const queryRepos = ({username}) => {\n' +
     '  return get(`https://api.github.com/users/${username}/repos`);\n' +
     '};\n'
-  fs.mkdirSync(path.join(__dirname, "api"));
-  fs.mkdirSync(path.join(__dirname, "api/module"));
-  fs.writeFileSync(path.join(__dirname, "api/module/user.js"), content);
+  fs.mkdirSync(path.join(__dirname, "src/api"));
+  fs.mkdirSync(path.join(__dirname, "src/api/module"));
+  fs.writeFileSync(path.join(__dirname, "src/api/module/user.js"), content);
 }
 
 process.argv.forEach(function (val, index, array) {
