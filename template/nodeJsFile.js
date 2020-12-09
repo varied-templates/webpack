@@ -100,7 +100,7 @@ const getters = {
    * @returns {array}
    */
   repos(store){
-    return store.repos;
+    return store.data.repos;
   }
 };
 

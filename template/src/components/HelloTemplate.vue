@@ -2,6 +2,14 @@
   <div class="hello">
     <img src="../assets/varied.png">
     <div class="text">\{{msg}}</div>
+    {{#if_eq hasVuex "Yes"}}
+    <div>
+      <h1>git用户仓库</h1>
+    </div>
+    <div v-for="repo in repos" :key="repo.id">
+      {{repo.full_name}}
+    </div>
+    {{/if_eq}}
     {{#if_eq hasComponent "Yes"}}
     {{#if_eq deviceType "Mobile"}}
     <vm-button tag="a" href="http://huangwanneng.cn/#/intro" block size="lg" class="bg-blue button-item">组件库</vm-button>
@@ -34,6 +42,9 @@ export default {
     };
   },
   {{#if_eq hasVuex "Yes"}}
+  created() {
+    this.queryRepos({username:'wuner'});
+  },
   methods: {
   ...mapActions('user', [
       'queryRepos', // 获取 git 用户所有仓库
