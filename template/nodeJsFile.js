@@ -134,8 +134,12 @@ const actions = {
 
 export default { namespaced: true, state, getters, mutations, actions };
 `
-  fs.mkdirSync(path.join(__dirname, "src/store"));
-  fs.mkdirSync(path.join(__dirname, "src/store/module"));
+  if (!fs.existsSync("src/store")){
+    fs.mkdirSync(path.join(__dirname, "src/store"));
+  }
+  if (!fs.existsSync("src/store/module")){
+    fs.mkdirSync(path.join(__dirname, "src/store/module"));
+  }
   fs.writeFileSync(path.join(__dirname, "src/store/index.js"), storeContent);
   fs.writeFileSync(path.join(__dirname, "src/store/module/user.js"), moduleContent);
 }
@@ -158,8 +162,12 @@ const createApi = () => {
     'export const queryRepos = ({username}) => {\n' +
     '  return get(`https://api.github.com/users/${username}/repos`);\n' +
     '};\n'
-  fs.mkdirSync(path.join(__dirname, "src/api"));
-  fs.mkdirSync(path.join(__dirname, "src/api/module"));
+  if (!fs.existsSync("src/api")){
+    fs.mkdirSync(path.join(__dirname, "src/api"));
+  }
+  if (!fs.existsSync("src/api/module")){
+    fs.mkdirSync(path.join(__dirname, "src/api/module"));
+  }
   fs.writeFileSync(path.join(__dirname, "src/api/module/user.js"), content);
 }
 
