@@ -107,7 +107,7 @@
     "@varied/mobile": "^0.0.11",
     {{/if_eq}}
     {{/if_eq}}
-    {{#if_eq hasStore "Yes"}}
+    {{#if_eq hasVuex "Yes"}}
     "vuex": "^3.6.0",
     {{/if_eq}}
     "vue-router": "^3.0.1",

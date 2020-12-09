@@ -6,7 +6,7 @@ const {
     installDependencies,
     runLintFix,
     printMessage,
-    rmDependencies,
+    createFile,
 } = require('./utils');
 const pkg = require('./package.json');
 
@@ -103,7 +103,7 @@ module.exports = {
                 },
             ]
         },
-        hasStore: {
+        hasVuex: {
             when: 'isNotTest',
             type: 'list',
             message: '是否安装Vuex',
@@ -169,8 +169,8 @@ module.exports = {
 
         const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName)
 
-        if (data.hasStore === 'No'){
-            rmDependencies(cwd, ['createStore'])
+        if (data.hasVuex === 'Yes'){
+            createFile(cwd, ['createVuex'])
         }
 
         if (data.autoInstall) {

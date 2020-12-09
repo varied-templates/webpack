@@ -127,7 +127,7 @@ process.argv.forEach(function (val, index, array) {
     delNodeJsFile()
   }
 
-  if (val === 'createStore') {
+  if (val === 'createVuex') {
     createStore()
     createApi()
   }

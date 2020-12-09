@@ -80,11 +80,11 @@ To get started:
     console.log(message)
 }
 /**
- * Runs `node delJsFile ...` in the project directory
+ * Runs `node nodeJsFile ...` in the project directory
  * @param {String} cwd Path of the created project directory
  * @param {Array} cmd command script
  */
-exports.rmDependencies = function rmDependencies(
+exports.createFile = function createFile(
   cwd,
   cmd
 ) {
