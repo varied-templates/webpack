@@ -176,7 +176,7 @@ module.exports = {
         createFile(cwd, ['delNodeJsFile'])
 
         if (data.autoInstall) {
-            installDependencies(cwd, data.autoInstall, green)
+            installDependencies(cwd, data, green)
                 .then(() => {
                     return runLintFix(cwd, data, green)
                 })
