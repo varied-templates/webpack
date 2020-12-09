@@ -28,7 +28,6 @@ axios.interceptors.response.use(
 const get = (url, params) => {
   return axios({
     method: 'get',
-    withCredentials: true,
     url,
     params,
     data: undefined,
@@ -38,7 +37,6 @@ const get = (url, params) => {
 const post = (url, data) => {
   return axios({
     method: 'post',
-    withCredentials: true,
     url,
     params: undefined,
     data,
