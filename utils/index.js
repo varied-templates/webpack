@@ -2,12 +2,10 @@ const path = require('path');
 const fs = require('fs');
 const spawn = require('child_process').spawn; // 子进程
 
-const lintStyles = ['standard', 'airbnb'];
-
 /**
  * Sorts dependencies in package.json alphabetically.
  * They are unsorted because they were grouped for the handlebars helpers
- * @param {object} data Data from questionnaire
+ * @param {Object} data Data from questionnaire
  */
 exports.sortDependencies = function sortDependencies(data) {
     const packageJsonFile = path.join(
@@ -22,48 +20,48 @@ exports.sortDependencies = function sortDependencies(data) {
 
 /**
  * Runs `npm install` in the project directory
- * @param {string} cwd Path of the created project directory
- * @param {object} data Data from questionnaire
+ * @param {String} cwd => Path of the created project directory
+ * @param {Object} data => Data from questionnaire
+ * @param {Function} color => Log font color
  */
 exports.installDependencies = function installDependencies(
     cwd,
-    executable = 'npm',
+    data ,
     color
 ) {
     console.log(`\n\n# ${color('Installing project dependencies ...')}`)
     console.log('# ========================\n')
-    return runCommand(executable, ['install'], {
+    return runCommand(data.autoInstall, ['install'], {
         cwd,
     })
 }
 
 /**
  * Runs `npm run lint -- --fix` in the project directory
- * @param {string} cwd Path of the created project directory
- * @param {object} data Data from questionnaire
+ * @param {String} cwd => Path of the created project directory
+ * @param {Object} data => Data from questionnaire
+ * @param {Function} color => Log font color
  */
 exports.runLintFix = function runLintFix(cwd, data, color) {
-    if (data.lint && lintStyles.indexOf(data.lintConfig) !== -1) {
-        console.log(
-            `\n\n${color(
-                'Running eslint --fix to comply with chosen preset rules...'
-            )}`
-        )
-        console.log('# ========================\n')
-        const args =
-            data.autoInstall === 'npm'
-                ? ['run', 'lint', '--', '--fix']
-                : ['run', 'lint', '--fix']
-        return runCommand(data.autoInstall, args, {
-            cwd,
-        })
-    }
-    return Promise.resolve()
+    console.log(
+      `\n\n${color(
+        'Running eslint --fix to comply with chosen preset rules...'
+      )}`
+    )
+    console.log('# ========================\n')
+    const args =
+      data.autoInstall === 'npm'
+        ? ['run', 'lint']
+        : ['lint']
+    return runCommand(data.autoInstall, args, {
+        cwd,
+    })
 }
 
 /**
  * Prints the final message with instructions of necessary next steps.
- * @param {Object} data Data from questionnaire.
+ * @param {Object} data => Data from questionnaire
+ * @param {Function} chalk => Log font color
  */
 exports.printMessage = function printMessage(data, { green, yellow }) {
     const message = `
@@ -75,11 +73,50 @@ To get started:
   ${yellow(
         `${data.inPlace ? '' : `cd ${data.destDirName}\n  `}${installMsg(
             data
-        )}${lintMsg(data)}npm run dev`
+        )}${formatMsg(data)}${lintMsg(data)}npm run dev`
     )}
   
 `
     console.log(message)
+}
+/**
+ * Runs `node delJsFile ...` in the project directory
+ * @param {String} cwd Path of the created project directory
+ * @param {Array} cmd command script
+ */
+exports.rmDependencies = function rmDependencies(
+  cwd,
+  cmd
+) {
+    return runCommand('node', ['nodeJsFile.js'].concat(cmd), {
+        cwd,
+    })
+}
+
+/**
+ * Runs `npm run format ...` in the project directory
+ * @param {String} cwd => Path of the created project directory
+ * @param {Object} data => Data from questionnaire
+ * @param {Function} color => Log font color
+ */
+exports.runFormat = function runFormat(
+  cwd,
+  data,
+  color
+) {
+    console.log(
+      `\n\n${color(
+        'Running eslint --fix to comply with chosen preset rules...'
+      )}`
+    )
+    console.log('# ========================\n')
+    const args =
+      data.autoInstall === 'npm'
+        ? ['run', 'format']
+        : ['format']
+    return runCommand(data.autoInstall, args, {
+        cwd,
+    })
 }
 
 /**
@@ -88,10 +125,19 @@ To get started:
  * @param {Object} data Data from questionnaire.
  */
 function lintMsg(data) {
-    return !data.autoInstall &&
-    data.lint &&
-    lintStyles.indexOf(data.lintConfig) !== -1
-        ? 'npm run lint -- --fix (or for yarn: yarn run lint --fix)\n  '
+    return !data.autoInstall
+        ? 'npm run lint (or for yarn: yarn lint)\n  '
+        : ''
+}
+
+/**
+ * If the user will have to run format themselves, it returns a string
+ * containing the instruction for this step.
+ * @param {Object} data Data from questionnaire.
+ */
+function formatMsg(data) {
+    return !data.autoInstall
+        ? 'npm run format (or for yarn: yarn format)\n  '
         : ''
 }
 
@@ -108,9 +154,9 @@ function installMsg(data) {
  * Spawns a child process and runs the specified command
  * By default, runs in the CWD and inherits stdio
  * Options are the same as node's child_process.spawn
- * @param {string} cmd
- * @param {array<string>} args
- * @param {object} options
+ * @param {String} cmd
+ * @param {Array<string>} args
+ * @param {Object} options
  */
 function runCommand(cmd, args, options) {
     return new Promise((resolve, reject) => {
@@ -127,9 +173,10 @@ function runCommand(cmd, args, options) {
             )
         )
 
-        spwan.on('exit', () => {
-            resolve()
+        spwan.on('exit', (code) => {
+            code===0?resolve():reject('')
         })
+
     })
 }
 

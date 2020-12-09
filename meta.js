@@ -6,6 +6,7 @@ const {
     installDependencies,
     runLintFix,
     printMessage,
+    rmDependencies,
 } = require('./utils');
 const pkg = require('./package.json');
 
@@ -102,6 +103,40 @@ module.exports = {
                 },
             ]
         },
+        hasStore: {
+            when: 'isNotTest',
+            type: 'list',
+            message: '是否安装Vuex',
+            choices: [
+                {
+                    name: 'Yes',
+                    value: 'Yes',
+                    short: 'Yes',
+                },
+                {
+                    name: 'No',
+                    value: 'No',
+                    short: 'No',
+                },
+            ]
+        },
+        routerMode: {
+            when: 'isNotTest',
+            type: 'list',
+            message: '选择路由模式',
+            choices: [
+                {
+                    name: 'history',
+                    value: 'history',
+                    short: 'history',
+                },
+                {
+                    name: 'hash',
+                    value: 'hash',
+                    short: 'hash',
+                },
+            ]
+        },
         autoInstall: {
             when: 'isNotTest',
             type: 'list',
@@ -130,9 +165,13 @@ module.exports = {
     complete: function (data, {chalk}) {
         const green = chalk.green;
 
-        sortDependencies(data, green)
+        sortDependencies(data)
 
         const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName)
+
+        if (data.hasStore === 'No'){
+            rmDependencies(cwd, ['createStore'])
+        }
 
         if (data.autoInstall) {
             installDependencies(cwd, data.autoInstall, green)

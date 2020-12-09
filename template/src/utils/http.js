@@ -44,7 +44,7 @@ const post = (url, data) => {
     method: 'post',
     withCredentials: true,
     url,
-    pararms: undefined,
+    params: undefined,
     data,
   });
 };
