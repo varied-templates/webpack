@@ -7,15 +7,11 @@ axios.defaults.timeout = 100000;
 axios.interceptors.response.use(
   function(response) {
     let resData = response.data;
-    // 以下无数据的判断对取号接口适配
+    // 这里写接口返回数据处理
     if (!resData) {
       return Promise.reject('数据格式不对', response);
     }
-    if (resData.code === 200 || resData.code === '200') {
-      return resData.data;
-    } else {
-      return Promise.reject(resData.message);
-    }
+    return resData
   },
   function(error) {
     if (
@@ -48,4 +44,5 @@ const post = (url, data) => {
     data,
   });
 };
+export { get, post };
 export default { get, post };

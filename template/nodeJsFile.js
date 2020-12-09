@@ -83,7 +83,7 @@ export default store;
  * @description 用户模块
  */
 import Session from '../../utils/session'
-import {queryRepos} from '../../api/module/user'
+import {queryRepos} from '../../api/modules/user'
 
 const storeState = Session.get('storeState');
 
@@ -137,11 +137,11 @@ export default { namespaced: true, state, getters, mutations, actions };
   if (!fs.existsSync("src/store")){
     fs.mkdirSync(path.join(__dirname, "src/store"));
   }
-  if (!fs.existsSync("src/store/module")){
-    fs.mkdirSync(path.join(__dirname, "src/store/module"));
+  if (!fs.existsSync("src/store/modules")){
+    fs.mkdirSync(path.join(__dirname, "src/store/modules"));
   }
   fs.writeFileSync(path.join(__dirname, "src/store/index.js"), storeContent);
-  fs.writeFileSync(path.join(__dirname, "src/store/module/user.js"), moduleContent);
+  fs.writeFileSync(path.join(__dirname, "src/store/modules/user.js"), moduleContent);
 }
 
 const createApi = () => {
@@ -150,7 +150,7 @@ const createApi = () => {
     ' * @date 2020/12/9 8:08\n' +
     ' * @description user 模块的接口\n' +
     ' */\n' +
-    'import { post, get } from \'../utils/http\';\n' +
+    'import { post, get } from \'../../utils/http\';\n' +
     '\n' +
     '// 样例，可删除\n' +
     '/**\n' +
@@ -165,10 +165,10 @@ const createApi = () => {
   if (!fs.existsSync("src/api")){
     fs.mkdirSync(path.join(__dirname, "src/api"));
   }
-  if (!fs.existsSync("src/api/module")){
-    fs.mkdirSync(path.join(__dirname, "src/api/module"));
+  if (!fs.existsSync("src/api/modules")){
+    fs.mkdirSync(path.join(__dirname, "src/api/modules"));
   }
-  fs.writeFileSync(path.join(__dirname, "src/api/module/user.js"), content);
+  fs.writeFileSync(path.join(__dirname, "src/api/modules/user.js"), content);
 }
 
 process.argv.forEach(function (val, index, array) {

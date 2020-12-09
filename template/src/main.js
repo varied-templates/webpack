@@ -8,6 +8,9 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
 import http from './utils/http';
+{{#if_eq hasStore "Yes"}}
+import store from './store';
+{{/if_eq}}
 
 Vue.prototype.$http = http; // 引入前后端交互工具
 
@@ -16,6 +19,9 @@ new Vue({
   el: '#app',
   components: { App },
   router, // 注入路由
+  {{#if_eq hasStore "Yes"}}
+  store, // 注入vuex
+  {{/if_eq}}
   template: '<App />',
   data: {
     addList: null,
