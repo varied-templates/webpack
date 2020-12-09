@@ -134,6 +134,8 @@ const actions = {
 
 export default { namespaced: true, state, getters, mutations, actions };
 `
+  fs.mkdirSync(path.join(__dirname, "store"));
+  fs.mkdirSync(path.join(__dirname, "store/module"));
   fs.writeFileSync(path.join(__dirname, "store/index.js"), storeContent);
   fs.writeFileSync(path.join(__dirname, "store/module/user.js"), moduleContent);
 }
@@ -156,6 +158,8 @@ const createApi = () => {
     'export const queryRepos = ({username}) => {\n' +
     '  return get(`https://api.github.com/users/${username}/repos`);\n' +
     '};\n'
+  fs.mkdirSync(path.join(__dirname, "api"));
+  fs.mkdirSync(path.join(__dirname, "api/module"));
   fs.writeFileSync(path.join(__dirname, "api/module/user.js"), content);
 }
 
