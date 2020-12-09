@@ -7,7 +7,7 @@
       <h1>git用户仓库</h1>
     </div>
     <div v-for="repo in repos" :key="repo.id">
-      {{repo.full_name}}
+      \{{repo.full_name}}
     </div>
     {{/if_eq}}
     {{#if_eq hasComponent "Yes"}}
