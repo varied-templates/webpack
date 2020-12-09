@@ -12,7 +12,7 @@
     {{/if_eq}}
     {{#if_eq hasComponent "Yes"}}
     {{#if_eq deviceType "Mobile"}}
-    <vm-button tag="a" href="http://huangwanneng.cn/#/intro" block size="lg" class="bg-blue button-item">组件库</vm-button>
+    <vm-button tag="a" href="https://wuner.gitee.io/varied-mobile-doc/#/intro" block size="lg" class="bg-blue button-item">组件库</vm-button>
     {{/if_eq}}
     {{/if_eq}}
   </div>
