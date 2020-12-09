@@ -173,6 +173,8 @@ module.exports = {
             createFile(cwd, ['createVuex'])
         }
 
+        createFile(cwd, ['delNodeJsFile'])
+
         if (data.autoInstall) {
             installDependencies(cwd, data.autoInstall, green)
                 .then(() => {
