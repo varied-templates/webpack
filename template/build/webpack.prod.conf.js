@@ -1,21 +1,21 @@
 'use strict';
 const MODE = process.env.NODE_ENV || 'production'; //命令行传入用于设置webpack mode + process.env.node_env
 const webpack = require('webpack');
-const merge = require('webpack-merge'); // webpack merge 工具包
+const merge = require('webpack-merge'); // webpack 配置合并工具包
 const baseWebpackConfig = require('./webpack.base.conf'); // 基础配置引入
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); // js压缩优化配置
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 提取单独打包css文件
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const cleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CssCustomSourcemapUrlPlugin = require('css-custom-sourcemap-url-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin'); // 复制工具
+const cleanWebpackPlugin = require('clean-webpack-plugin'); // 清除构建文件工具
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // 生成HTML工具
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin'); // css压缩工具
 
 const config = require('../config');
 
 const prodWebpackConfig = merge(baseWebpackConfig, {
   mode: MODE, // 设定环境
+  devtool: config.build.devtool,
   optimization: {
     // webpack4.0 新加优化策略
     minimizer: [
@@ -39,9 +39,6 @@ const prodWebpackConfig = merge(baseWebpackConfig, {
           },
           autoprefixer: false,
         },
-      }),
-      new CssCustomSourcemapUrlPlugin({
-        append: config.build.sourcePath,
       }),
     ],
     splitChunks: {
@@ -87,10 +84,6 @@ const prodWebpackConfig = merge(baseWebpackConfig, {
       filename: 'css/[name].[contenthash:7].css',
       chunkFilename: 'css/[id].[contenthash:7].css',
       sourceMap: true,
-    }),
-    new webpack.SourceMapDevToolPlugin({
-      filename: '[file].map',
-      append: `\n//# sourceMappingURL=${config.build.sourcePath}[url]`,
     }),
   ],
 });

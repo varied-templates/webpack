@@ -2,12 +2,12 @@
 const MODE = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 const config = require('../config');
-const merge = require('webpack-merge');
+const merge = require('webpack-merge'); // webpack 配置合并工具
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const baseWebpackConfig = require('./webpack.base.conf');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const cleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin'); // 复制工具
+const baseWebpackConfig = require('./webpack.base.conf'); // 引入基本配置
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // HTML生成工具
+const cleanWebpackPlugin = require('clean-webpack-plugin'); // 清除构建文件工具
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 提取单独打包css文件
 
 const devWebpackConfig = merge(baseWebpackConfig, {

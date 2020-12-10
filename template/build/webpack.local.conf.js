@@ -1,16 +1,15 @@
 'use strict';
 const MODE = process.env.NODE_ENV || 'local';
 const path = require("path");
-const apiMocker = require('webpack-api-mocker');
 const webpack = require('webpack');
 const config = require('../config');
-const merge = require('webpack-merge');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const baseWebpackConfig = require('./webpack.base.conf');
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const merge = require('webpack-merge'); // webpack 配置合并工具包
+const CopyWebpackPlugin = require('copy-webpack-plugin'); // 复制工具
+const baseWebpackConfig = require('./webpack.base.conf'); // 基础配置引入
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin'); // 友好报错工具
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // Html生成工具
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 提取单独打包css文件
-const portfinder = require('portfinder');
+const portfinder = require('portfinder'); // 节点端口查找器
 
 const HOST = process.env.HOST;
 const PORT = process.env.PORT && Number(process.env.PORT);
@@ -55,23 +54,6 @@ const localWebpackConfig = merge.smartStrategy({
       poll: config.local.poll,
     },
     disableHostCheck: config.local.disableHostCheck,
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: ["css-hot-loader"] // 使用 MiniCssExtractPlugin 控件 需要 css-hot-loader 做热替换插件
-      },
-      {
-        {{#if_eq cssPreprocessors "Sass"}}
-        test: /\.scss$/,
-        {{/if_eq}}
-        {{#if_eq cssPreprocessors "Less"}}
-        test: /\.less$/,
-        {{/if_eq}}
-        use: ['css-hot-loader'], // 使用 MiniCssExtractPlugin 控件 需要 css-hot-loader 做热替换插件
-      }
-    ],
   },
   optimization: {
     splitChunks: {

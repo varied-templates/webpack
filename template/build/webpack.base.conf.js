@@ -1,14 +1,14 @@
 'use strict';
 const webpack = require('webpack');
 const config = require('../config');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const depsPlugin = require('extract-dependency-manifest-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin'); // vue 加载器
+const depsPlugin = require('extract-dependency-manifest-plugin'); // 提取依赖清单工具
 const path = require('path');
 const isProduction = process.env.NODE_ENV === 'production';
 const isDevelopment = process.env.NODE_ENV === 'development';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 提取单独打包css文件
 // 引入插件
-var vConsolePlugin = require('vconsole-webpack-plugin');
+var vConsolePlugin = require('vconsole-webpack-plugin'); // 日志工具
 
 // 接收运行参数
 const argv = require('yargs')
@@ -79,26 +79,22 @@ module.exports = {
         exclude: /node_modules/,
         include: resolve('src'),
       },
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: "css-loader",
-            options: {
-              importLoaders: 2
-            }
-          },
-          "postcss-loader"
-        ]
-      },
       // 它会应用到普通的 `.css` 文件
       // 以及 `.vue` 文件中的 `<style>` 块
       {{#if_eq cssPreprocessors "Sass"}}
       {
-        test: /\.scss$/,
+        test: /\.(sc|c)ss$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            // 使用 MiniCssExtractPlugin 控件 需要 css-hot-loader 做热替换插件
+            loader: 'css-hot-loader',
+          },
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../',
+            },
+          },
           {
             loader: 'css-loader',
             options: {
@@ -112,9 +108,18 @@ module.exports = {
       {{/if_eq}}
       {{#if_eq cssPreprocessors "Less"}}
       {
-        test: /\.less$/,
+        test: /\.(le|c)ss$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          {
+            // 使用 MiniCssExtractPlugin 控件 需要 css-hot-loader 做热替换插件
+            loader: 'css-hot-loader',
+          },
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../',
+            },
+          },
           {
             loader: 'css-loader',
             options: {
