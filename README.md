@@ -6,16 +6,12 @@
 ```
 npm install varied-cli -g
 ```
+
 ### 构建方法
 
 ```
 varied init webpack mytest
 ```
-
-## 自定义可配置项
-* 添加内网 `sourceMap`
-  在 `config/index.js` 文件中配置生产环境下内网sourceMap地址
-
 
 ## 项目技术栈
 
