@@ -39,22 +39,22 @@ const state = {
 const getters = {
   /**
    * data数据
-   * @param store
+   * @param state
    * @returns {*}
    */
-  data(store) {
-    return store.data;
+  data(state) {
+    return state.data;
   },
 };
 
 const mutations = {
   /**
    * 设置data数据
-   * @param store
+   * @param state
    * @param data
    */
-  setData(store, data) {
-    store.data = data;
+  setData(state, data) {
+    state.data = data;
   },
 };
 
@@ -96,22 +96,22 @@ const state = (storeState && storeState.user) || {
 const getters = {
   /**
    * git 用户所有仓库
-   * @param store
+   * @param state
    * @returns {array}
    */
-  repos(store){
-    return store.data.repos;
+  repos(state){
+    return state.data.repos;
   }
 };
 
 const mutations = {
   /**
    * 设置 git 用户所有仓库
-   * @param store
+   * @param state
    * @param data
    */
-  setRepos(store, data){
-    store.data.repos = data;
+  setRepos(state, data){
+    state.data.repos = data;
   }
 };
 
