@@ -79,7 +79,7 @@ module.exports = {
         exclude: /node_modules/,
         include: resolve('src'),
       },
-      {{#if_eq useTypescript}}
+      {{#if_eq useTypescript "Yes"}}
       {
         test: /\.tsx?$/,
         loader: 'ts-loader',
