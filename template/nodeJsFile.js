@@ -249,6 +249,9 @@ const isAndroid = function()${useTypescript?': boolean':''} {
 };
 export default { isAndroid, isIos };
 `
+  if (!fs.existsSync("src/utils")){
+    fs.mkdirSync(path.join(__dirname, "src/utils"));
+  }
   fs.writeFileSync(path.join(__dirname, `src/utils/common-utils.${useTypescript?'ts':'js'}`), content);
 }
 
@@ -360,6 +363,9 @@ let router = new Router({
 
 export default router;
 `
+  if (!fs.existsSync("src/router")){
+    fs.mkdirSync(path.join(__dirname, "src/router"));
+  }
   fs.writeFileSync(path.join(__dirname, `src/router/index.${useTypescript?'ts':'js'}`), content);
 }
 
