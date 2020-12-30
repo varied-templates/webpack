@@ -30,7 +30,11 @@ function resolve(dir) {
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
+    {{#if_eq useTypescript "Yes"}}
+    app: './src/main.ts',
+    {{else}}
     app: './src/main.js',
+    {{/if_eq}}
   },
   output: {
     path: config.build.assetsRoot,
@@ -47,7 +51,11 @@ module.exports = {
         : config.local.assetsPublicPath),
   },
   resolve: {
+    {{#if_eq useTypescript "Yes"}}
+    extensions: ['.ts', '.js', '.vue', '.json', '.scss', 'less'],
+    {{else}}
     extensions: ['.js', '.vue', '.json', '.scss', 'less'],
+    {{/if_eq}}
     alias: {
       vue$: 'vue/dist/vue.esm.js',
       '@': resolve('src'),
