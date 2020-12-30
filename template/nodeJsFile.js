@@ -187,7 +187,7 @@ import { get } from '@/utils/http';
  * @returns
  */
 export const queryRepos = ({ username }${useTypescript?': { username: string }':''}) => {
-  return get(\`https://api.github.com/users/${username}/repos\`, {});
+  return get(\`https://api.github.com/users/\${username}/repos\`, {});
 };
 `
   if (!fs.existsSync("src/api")){
