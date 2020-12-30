@@ -53,6 +53,23 @@ module.exports = {
             type: 'string',
             message: 'Author（作者）',
         },
+        useTypescript: {
+            when: 'isNotTest',
+            type: 'list',
+            message: 'use typescript or not（是否使用 Typescript）',
+            choices: [
+                {
+                    name: 'Yes',
+                    value: 'Yes',
+                    short: 'Yes',
+                },
+                {
+                    name: 'No',
+                    value: 'No',
+                    short: 'No',
+                },
+            ]
+        },
         deviceType: {
             when: 'isNotTest',
             type: 'list',
@@ -90,7 +107,7 @@ module.exports = {
         hasComponent: {
             when: 'isNotTest',
             type: 'list',
-            message: 'has component or not（是否有组件）',
+            message: 'install component or not（是否安装组件）',
             choices: [
                 {
                     name: 'Yes',
@@ -107,7 +124,7 @@ module.exports = {
         hasVuex: {
             when: 'isNotTest',
             type: 'list',
-            message: '是否安装Vuex',
+            message: 'install Vuex or not（是否安装 Vuex）',
             choices: [
                 {
                     name: 'Yes',
@@ -124,7 +141,7 @@ module.exports = {
         routerMode: {
             when: 'isNotTest',
             type: 'list',
-            message: '选择路由模式',
+            message: 'Choose routing mode（选择路由模式）',
             choices: [
                 {
                     name: 'history',
@@ -170,11 +187,19 @@ module.exports = {
 
         const cwd = path.join(process.cwd(), data.inPlace ? '' : data.destDirName)
 
-        if (data.hasVuex === 'Yes'){
-            createFile(cwd, ['createVuex'])
-        }
+        let cmd = [];
 
-        createFile(cwd, ['delNodeJsFile'])
+        if (data.useTypescript === 'Yes'){
+            cmd.push('useTypescript')
+        }
+        if (data.hasComponent === 'Yes'){
+            cmd.push('hasComponent')
+        }
+        if (data.hasVuex === 'Yes'){
+            cmd.push('hasVuex')
+        }
+        cmd.push(data.routerMode)
+        createFile(cwd, cmd)
 
         if (data.autoInstall) {
             installDependencies(cwd, data, green)

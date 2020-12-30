@@ -18,7 +18,14 @@
   </div>
 </template>
 
+{{#if_eq useTypescript "Yes"}}
+<script lang="ts">
+{{else}}
 <script>
+{{/if_eq}}
+{{#if_eq useTypescript "Yes"}}
+import Vue from 'vue';
+{{/if_eq}}
 {{#if_eq hasComponent "Yes"}}
 {{#if_eq deviceType "Mobile"}}
 import { Button } from '@varied/mobile';
@@ -27,7 +34,11 @@ import { Button } from '@varied/mobile';
 {{#if_eq hasVuex "Yes"}}
 import { mapActions, mapGetters } from 'vuex';
 {{/if_eq}}
+{{#if_eq useTypescript "Yes"}}
+export default Vue.extend({
+{{else}}
 export default {
+{{/if_eq}}
   name: 'HelloMobileTemplate',
   {{#if_eq hasComponent "Yes"}}
   {{#if_eq deviceType "Mobile"}}
@@ -56,7 +67,11 @@ export default {
     ]),
   },
   {{/if_eq}}
+{{#if_eq useTypescript "Yes"}}
+});
+{{else}}
 };
+{{/if_eq}}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

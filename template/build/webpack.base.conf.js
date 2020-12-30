@@ -79,6 +79,16 @@ module.exports = {
         exclude: /node_modules/,
         include: resolve('src'),
       },
+      {{#if_eq useTypescript}}
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          appendTsSuffixTo: [/\.vue$/],
+        },
+      },
+      {{/if_eq}}
       // 它会应用到普通的 `.css` 文件
       // 以及 `.vue` 文件中的 `<style>` 块
       {{#if_eq cssPreprocessors "Sass"}}
