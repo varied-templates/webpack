@@ -211,6 +211,8 @@ import App from './App.vue';
 import router from './router';
 import http from './utils/http';
 ${hasVuex?"import store from './store';":""}
+${hasVuex?"import { Button } from '@varied/mobile';":""}
+${hasVuex?"Vue.use(Button);":""}
 Vue.prototype.$http = http; // 引入前后端交互工具
 
 // 开始创建Vue实例
@@ -388,6 +390,7 @@ declare global {
   import Vue from "vue";
   export default Vue;
 }
+declare module '@varied/mobile';
 `
   let contentConfig = `{
   "compilerOptions": {

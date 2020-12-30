@@ -26,11 +26,6 @@
 {{#if_eq useTypescript "Yes"}}
 import Vue from 'vue';
 {{/if_eq}}
-{{#if_eq hasComponent "Yes"}}
-{{#if_eq deviceType "Mobile"}}
-import { Button } from '@varied/mobile';
-{{/if_eq}}
-{{/if_eq}}
 {{#if_eq hasVuex "Yes"}}
 import { mapActions, mapGetters } from 'vuex';
 {{/if_eq}}
@@ -40,13 +35,6 @@ export default Vue.extend({
 export default {
 {{/if_eq}}
   name: 'HelloMobileTemplate',
-  {{#if_eq hasComponent "Yes"}}
-  {{#if_eq deviceType "Mobile"}}
-  components: {
-    [Button.name]: Button,
-  },
-  {{/if_eq}}
-  {{/if_eq}}
   data() {
     return {
       msg: 'Welcome to Varied',

@@ -8,14 +8,19 @@ const isProduction = process.env.NODE_ENV === 'production';
 const isDevelopment = process.env.NODE_ENV === 'development';
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 提取单独打包css文件
 // 引入插件
-var vConsolePlugin = require('vconsole-webpack-plugin'); // 日志工具
+const vConsolePlugin = require('vconsole-webpack-plugin'); // 日志工具
+{{#if_eq hasComponent "Yes"}}
+{{#if_eq useTypescript "Yes"}}
+const tsImportPluginFactory = require('ts-import-plugin');
+{{/if_eq}}
+{{/if_eq}}
 
 // 接收运行参数
 const argv = require('yargs')
   .describe('debug', 'debug 环境') // use 'webpack --debug'
   .argv;
 
-const plugins = [];
+let plugins = [];
 console.log('Building on *---' + process.env.NODE_ENV + '---* MODE');
 
 function resolve(dir) {
@@ -86,6 +91,21 @@ module.exports = {
         exclude: /node_modules/,
         options: {
           appendTsSuffixTo: [/\.vue$/],
+          {{#if_eq hasComponent "Yes"}}
+          transpileOnly: true,
+          getCustomTransformers: () => ({
+            before: [
+              tsImportPluginFactory({
+                libraryName: '@varied/mobile',
+                libraryDirectory: 'es',
+                style: true,
+              }),
+            ],
+          }),
+          compilerOptions: {
+            module: 'es2015',
+          },
+          {{/if_eq}}
         },
       },
       {{/if_eq}}
