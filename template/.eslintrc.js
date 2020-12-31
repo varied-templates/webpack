@@ -8,6 +8,11 @@ module.exports = {
     'prettier',
     'eslint:recommended',
     'eslint-config-prettier',
+    {{#if_eq useTypescript "Yes"}}
+    "@vue/typescript/recommended",
+    "@vue/prettier",
+    "@vue/prettier/@typescript-eslint"
+    {{/if_eq}}
   ],
   plugins: ['prettier'],
   rules: {
@@ -16,6 +21,9 @@ module.exports = {
     'no-unused-vars': 'off',
     'prettier/prettier': 'warn',
     "no-useless-escape": 'off', // 关闭禁止转义字符
+    {{#if_eq useTypescript "Yes"}}
+    "@typescript-eslint/ban-ts-ignore": "off"
+    {{/if_eq}}
   },
   parserOptions: {
     parser: 'babel-eslint',
