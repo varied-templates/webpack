@@ -20,11 +20,9 @@
 
 {{#if_eq useTypescript "Yes"}}
 <script lang="ts">
+import Vue from 'vue';
 {{else}}
 <script>
-{{/if_eq}}
-{{#if_eq useTypescript "Yes"}}
-import Vue from 'vue';
 {{/if_eq}}
 {{#if_eq hasVuex "Yes"}}
 import { mapActions, mapGetters } from 'vuex';

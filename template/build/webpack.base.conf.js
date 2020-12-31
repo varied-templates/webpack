@@ -76,6 +76,7 @@ module.exports = {
         exclude: /node_modules/,
         include: resolve('src'),
       },
+      {{#if_eq useTypescript "No"}}
       {
         test: /\.js$/,
         use: isProduction
@@ -92,7 +93,7 @@ module.exports = {
         exclude: /node_modules/,
         include: resolve('src'),
       },
-      {{#if_eq useTypescript "Yes"}}
+      {{else}}
       {
         test: /\.tsx?$/,
         loader: 'ts-loader',

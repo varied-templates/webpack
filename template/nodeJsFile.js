@@ -62,7 +62,7 @@ const mutations = {
    * @param state
    * @param data
    */
-  setData${useTypescript?'(state: RootState, data: Object)':'(state, data)'} {
+  setData${useTypescript?'(state: RootState, data: object)':'(state, data)'} {
     state.data = data;
   },
 };
@@ -120,7 +120,7 @@ const mutations = {
    * @param state
    * @param data
    */
-  setRepos${useTypescript?'(state: UserState, data: Object)':'(state, data)'} {
+  setRepos${useTypescript?'(state: UserState, data: object)':'(state, data)'} {
     state.data.repos = data;
   },
 };
@@ -148,14 +148,14 @@ const actions = {
 export default { namespaced: true, state, getters, mutations, actions };
 `
   let typesContent = `export interface RootState {
-  data: Object;
+  data: object;
 }
 
 export interface UserState {
   data: Repos;
 }
 export interface Repos {
-  repos: Object;
+  repos: object;
 }
 `
   if (!fs.existsSync("src/store")){
@@ -203,8 +203,8 @@ const createMain = () => {
   let content = `// webpack 打包入口文件
 /**
  * !!! 如果你在生成应用时选择了组件，模板已经按照按需引入模式进行配置，您无需再次全局引入，否则会冲突
- * import { Button } from 'simple-mobile'; 在需要的地方 import 需要的组件就好了
- * 具体请参考 http://huangwanneng.cn/#/quickstart 按需引入章节
+ * import { Button } from '@varied/mobile'; 在需要的地方 import 需要的组件就好了
+ * 具体请参考 https://wuner.gitee.io/varied-mobile-doc/#/quickstart 按需引入章节
  */
 import Vue from 'vue';
 import App from './App.vue';
@@ -285,7 +285,7 @@ axios.interceptors.response.use(
   },
 );
 
-const get = ${useTypescript?'(url: string, params: Object)':'(url, params)'} => {
+const get = ${useTypescript?'(url: string, params: object)':'(url, params)'} => {
   return axios({
     method: 'get',
     url,
@@ -294,7 +294,7 @@ const get = ${useTypescript?'(url: string, params: Object)':'(url, params)'} => 
   });
 };
 
-const post = ${useTypescript?'(url: string, data: Object)':'(url, data)'} => {
+const post = ${useTypescript?'(url: string, data: object)':'(url, data)'} => {
   return axios({
     method: 'post',
     url,
@@ -308,9 +308,7 @@ export default { get, post };
 }
 
 const createSession = () => {
-  let content = `${useTypescript && hasVuex?"import { RootState } from '@/store/types';":""}
-
-const get = function(key${useTypescript?': string':''}) {
+  let content = `const get = function(key${useTypescript?': string':''}) {
   let value = sessionStorage.getItem(key);
   let data;
 
@@ -327,7 +325,7 @@ const get = function(key${useTypescript?': string':''}) {
   return data;
 };
 
-const set = function${useTypescript?hasVuex?'(key: string, value: string | Object | RootState)':'(key: string, value: string | Object)':'(key, value)'} {
+const set = function${useTypescript?'(key: string, value: any)':'(key, value)'} {
   if (typeof value === 'object') {
     sessionStorage.setItem(key, JSON.stringify(value));
   } else {
@@ -390,7 +388,6 @@ declare global {
   import Vue from "vue";
   export default Vue;
 }
-declare module '@varied/mobile';
 `
   let contentConfig = `{
   "compilerOptions": {
