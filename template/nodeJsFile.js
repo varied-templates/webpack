@@ -25,7 +25,7 @@ const createStore = () => {
  * @date 2020/12/9 17:58
  * @description store 配置文件
  */
-import Vuex, { Store } from 'vuex';
+import Vuex${useTypescript?', { Store }':''} from 'vuex';
 import Vue from 'vue';
 import Session from '@/utils/session';
 import user from './modules/user';
