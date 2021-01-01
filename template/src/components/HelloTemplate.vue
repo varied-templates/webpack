@@ -32,7 +32,7 @@ export default Vue.extend({
 {{else}}
 export default {
 {{/if_eq}}
-  name: 'HelloMobileTemplate',
+  name: 'HelloTemplate',
   data() {
     return {
       msg: 'Welcome to Varied',
