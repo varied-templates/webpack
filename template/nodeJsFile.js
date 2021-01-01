@@ -29,7 +29,7 @@ import Vuex${useTypescript?', { Store }':''} from 'vuex';
 import Vue from 'vue';
 import Session from '@/utils/session';
 import user from './modules/user';
-${useTypescript?"import { RootState } from './types';":""}
+${useTypescript?"import { RootState } from '@/types';":""}
 
 Vue.use(Vuex);
 
@@ -93,7 +93,7 @@ export default store;
  */
 import Session from '@/utils/session';
 import { queryRepos } from '@/api/modules/user';
-${useTypescript?"import { UserState } from '@/store/types';":''}
+${useTypescript?"import { UserState } from '@/types';":''}
 
 const storeState = Session.get('storeState');
 
@@ -147,25 +147,12 @@ const actions = {
 
 export default { namespaced: true, state, getters, mutations, actions };
 `
-  let typesContent = `export interface RootState {
-  data: object;
-}
 
-export interface UserState {
-  data: Repos;
-}
-export interface Repos {
-  repos: object;
-}
-`
   if (!fs.existsSync("src/store")){
     fs.mkdirSync(path.join(__dirname, "src/store"));
   }
   if (!fs.existsSync("src/store/modules")){
     fs.mkdirSync(path.join(__dirname, "src/store/modules"));
-  }
-  if (useTypescript){
-    fs.writeFileSync(path.join(__dirname, "src/store/types.ts"), typesContent);
   }
   fs.writeFileSync(path.join(__dirname, `src/store/index.${useTypescript?'ts':'js'}`), storeContent);
   fs.writeFileSync(path.join(__dirname, `src/store/modules/user.${useTypescript?'ts':'js'}`), moduleContent);
@@ -430,9 +417,24 @@ declare global {
   ]
 }
 `
+  let contentTypes = `export interface RootState {
+  data: object;
+}
+
+export interface UserState {
+  data: Repos;
+}
+export interface Repos {
+  repos: object;
+}
+`
   fs.writeFileSync(path.join(__dirname, `src/shims-tsx.d.ts`), content);
   fs.writeFileSync(path.join(__dirname, `src/shims-vue.d.ts`), contentVue);
   fs.writeFileSync(path.join(__dirname, `tsconfig.json`), contentConfig);
+  if (!fs.existsSync("src/types")){
+    fs.mkdirSync(path.join(__dirname, "src/types"));
+  }
+  fs.writeFileSync(path.join(__dirname, "src/types/index.d.ts"), contentTypes);
 }
 
 const createBase = () => {

@@ -5,13 +5,14 @@ module.exports = {
   },
   extends: [
     'plugin:vue/essential',
-    'prettier',
-    'eslint:recommended',
-    'eslint-config-prettier',
     {{#if_eq useTypescript "Yes"}}
     "@vue/typescript/recommended",
     "@vue/prettier",
     "@vue/prettier/@typescript-eslint"
+    {{else}}
+    'prettier',
+    'eslint:recommended',
+    'eslint-config-prettier',
     {{/if_eq}}
   ],
   plugins: ['prettier'],
