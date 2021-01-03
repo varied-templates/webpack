@@ -5,17 +5,19 @@ module.exports = {
   },
   extends: [
     'plugin:vue/essential',
+    'eslint:recommended',
     {{#if_eq useTypescript "Yes"}}
     "@vue/typescript/recommended",
     "@vue/prettier",
     "@vue/prettier/@typescript-eslint"
     {{else}}
     'prettier',
-    'eslint:recommended',
     'eslint-config-prettier',
     {{/if_eq}}
   ],
+  {{#if_eq useTypescript "No"}}
   plugins: ['prettier'],
+  {{/if_eq}}
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -27,6 +29,10 @@ module.exports = {
     {{/if_eq}}
   },
   parserOptions: {
+    {{#if_eq useTypescript "Yes"}}
+    ecmaVersion: 2020,
+    {{else}}
     parser: 'babel-eslint',
+    {{/if_eq}}
   },
 };
