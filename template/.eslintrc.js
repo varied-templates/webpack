@@ -7,7 +7,6 @@ module.exports = {
     'plugin:vue/essential',
     'eslint:recommended',
     {{#if_eq useTypescript "Yes"}}
-    "@vue/typescript/recommended",
     "@vue/prettier",
     "@vue/prettier/@typescript-eslint"
     {{else}}
@@ -30,7 +29,7 @@ module.exports = {
   },
   parserOptions: {
     {{#if_eq useTypescript "Yes"}}
-    ecmaVersion: 2020,
+    parser: '@typescript-eslint/parser',
     {{else}}
     parser: 'babel-eslint',
     {{/if_eq}}
