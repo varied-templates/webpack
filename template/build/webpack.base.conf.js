@@ -2,7 +2,6 @@
 const webpack = require('webpack');
 const config = require('../config');
 const VueLoaderPlugin = require('vue-loader/lib/plugin'); // vue 加载器
-const depsPlugin = require('extract-dependency-manifest-plugin'); // 提取依赖清单工具
 const path = require('path');
 const isProduction = process.env.NODE_ENV === 'production';
 const isDevelopment = process.env.NODE_ENV === 'development';
@@ -206,8 +205,6 @@ module.exports = {
     ],
   },
   plugins: [
-    //keep module.id stable when vendor modules does not change
-    new depsPlugin(JSON.stringify(require("../package.json").version)),
     new webpack.HashedModuleIdsPlugin(),
     new vConsolePlugin({enable: !!argv.debug}),
     new VueLoaderPlugin(), // vue loader 15 必须添加plugin
